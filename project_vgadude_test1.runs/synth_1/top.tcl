@@ -81,7 +81,6 @@ read_verilog -library xil_defaultlib {
   {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/quadSevenSeg.v}
   {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/receiver.v}
   {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/simple_dual_one_clock.v}
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/imports/new/singlePulser.v}
   {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/text_screen_gen.v}
   {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/transmitter.v}
   {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/uart.v}

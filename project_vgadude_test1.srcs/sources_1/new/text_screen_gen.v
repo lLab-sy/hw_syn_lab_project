@@ -60,7 +60,7 @@ module text_screen_gen(
     // debounce_chu db_keyboard(.clk(clk), .reset(reset), .sw(en), .db_level(), .db_tick(move_xr));
     
     reg [1:0] stage = 0;
-    reg enable;
+    reg enable = 0;
 //    singlePulser singelIsEnable(.d(enable), .clk(clk), .pushed(en));
     always @(posedge clk) begin
         if (stage == 0) begin
