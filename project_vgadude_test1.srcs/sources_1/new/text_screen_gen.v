@@ -98,11 +98,13 @@ module text_screen_gen(
 //                         .din_a(din), .dout_a(), .dout_b(dout));
     
     // registers
+    reg [4:0] last_row = START_Y; 
     reg[6:0] max_row[63:0];
-    always @(posedge clk or posedge reset)
+always @(posedge clk or posedge reset)
         if(reset) begin
             cur_x_reg <= START_X;
             cur_y_reg <= START_Y;
+            last_row <= START_Y;
             pix_x1_reg <= 0;
             pix_x2_reg <= 0;
             pix_y1_reg <= 0;
@@ -110,6 +112,9 @@ module text_screen_gen(
             max_row[START_Y] <= START_X;
         end    
         else begin
+            if(cur_y_reg > last_row)begin
+                last_row = cur_y_reg;
+            end
             cur_x_reg <= cur_x_next;
             cur_y_reg <= cur_y_next;
             pix_x1_reg <= x;
@@ -120,7 +125,7 @@ module text_screen_gen(
         end
     wire[6:0] current_max_row;
     assign current_max_row = max_row[pix_y2_reg[8:4]];
-    assign not_show = current_max_row < pix_x2_reg[9:3];
+    assign not_show = (current_max_row < pix_x2_reg[9:3]) || (pix_y2_reg[8:4] > last_row);
 //    always @(posedge clk or posedge reset)
 //        if(reset || right) begin
 //            cur_x_reg <= START_X;
