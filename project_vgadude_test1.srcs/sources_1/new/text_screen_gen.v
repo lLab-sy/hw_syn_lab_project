@@ -36,8 +36,11 @@ module text_screen_gen(
     wire [11:0] addr_r, addr_w;
     wire [7:0] din, dout;
     // 80-by-30 tile map
-    parameter MAX_X = 40;   // 640 pixels / 8 data bits = 80
+    parameter MAX_X = 60;   // 640 pixels / 8 data bits = 80
     parameter MAX_Y = 20;   // 480 pixels / 16 data rows = 30
+    parameter START_X = 20;
+    parameter START_Y = 13;
+    
     // cursor
     reg [6:0] cur_x_reg;
     wire [6:0] cur_x_next;
@@ -49,11 +52,11 @@ module text_screen_gen(
     reg [9:0] pix_x2_reg, pix_y2_reg;
     // object output signals
     wire [11:0] text_rgb, text_rev_rgb;
-    wire en, move_xr;
+    wire en, move_xr, after_cursor;
     
     // body
     // instantiate debounce for four buttons
-    //debounce_chu db_left(.clk(clk), .reset(reset), .sw(left), .db_level(), .db_tick(move_xl_tick));
+    //debounce_chu db_left(.clk(clk), .reset(resdet), .sw(left), .db_level(), .db_tick(move_xl_tick));
     //debounce_chu db_up(.clk(clk), .reset(reset), .sw(up), .db_level(), .db_tick(move_yu_tick));
     //debounce_chu db_down(.clk(clk), .reset(reset), .sw(down), .db_level(), .db_tick(move_yd_tick));
     //debounce_chu db_right(.clk(clk), .reset(reset), .sw(right), .db_level(), .db_tick(move_xr_tick));
@@ -95,14 +98,16 @@ module text_screen_gen(
 //                         .din_a(din), .dout_a(), .dout_b(dout));
     
     // registers
+    reg[6:0] max_row[63:0];
     always @(posedge clk or posedge reset)
-        if(reset || right) begin
-            cur_x_reg <= 10;
-            cur_y_reg <= 10;
+        if(reset) begin
+            cur_x_reg <= START_X;
+            cur_y_reg <= START_Y;
             pix_x1_reg <= 0;
             pix_x2_reg <= 0;
             pix_y1_reg <= 0;
             pix_y2_reg <= 0;
+            max_row[START_Y] <= START_X;
         end    
         else begin
             cur_x_reg <= cur_x_next;
@@ -111,7 +116,28 @@ module text_screen_gen(
             pix_x2_reg <= pix_x1_reg;
             pix_y1_reg <= y;
             pix_y2_reg <= pix_y1_reg;
+            max_row[cur_y_reg] <= cur_x_reg;
         end
+    wire[6:0] current_max_row;
+    assign current_max_row = max_row[pix_y2_reg[8:4]];
+    assign not_show = current_max_row < pix_x2_reg[9:3];
+//    always @(posedge clk or posedge reset)
+//        if(reset || right) begin
+//            cur_x_reg <= START_X;
+//            cur_y_reg <= START_Y;
+//            pix_x1_reg <= 0;
+//            pix_x2_reg <= 0;
+//            pix_y1_reg <= 0;
+//            pix_y2_reg <= 0;
+//        end    
+//        else begin
+//            cur_x_reg <= cur_x_next;
+//            cur_y_reg <= cur_y_next;
+//            pix_x1_reg <= x;
+//            pix_x2_reg <= pix_x1_reg;
+//            pix_y1_reg <= y;
+//            pix_y2_reg <= pix_y1_reg;
+//        end
     
     // tile RAM write
     assign addr_w = {cur_y_reg, cur_x_reg};
@@ -130,10 +156,13 @@ module text_screen_gen(
     
     // new cursor position
     
-    assign cur_x_next = (enable && cur_x_reg == MAX_X - 1) ? 10 : (enable) ? cur_x_reg + 1 : cur_x_reg;
+//    assign cur_x_next = (enable && cur_x_reg == MAX_X - 1) ? START_X : (enable) ? cur_x_reg + 1 : cur_x_reg;
     
-    assign cur_y_next = (cur_y_reg == MAX_Y -1) ? 10 : ((enable && cur_x_reg == MAX_X - 1)) ? cur_y_reg + 1 : cur_y_reg;
+//    assign cur_y_next = (cur_y_reg == MAX_Y -1) ? 10 : ((enable && cur_x_reg == MAX_X - 1)) ? cur_y_reg + 1 : cur_y_reg;
     
+    assign cur_x_next = (enable && cur_x_reg == MAX_X - 1) ? START_X : (enable && data_fk[7:4] == 4'b0000 && data_fk[3:0] == 4'b1101) ? START_X : (enable) ? cur_x_reg + 1 : cur_x_reg;
+
+    assign cur_y_next = (cur_y_reg == MAX_Y -1) ? START_Y : ((enable && cur_x_reg == MAX_X - 1) || (enable && data_fk[7:4] == 4'b0000 && data_fk[3:0] == 4'b1101)) ? cur_y_reg + 1 : cur_y_reg;
 //    assign cur_x_next = ((move_xr_tick || enable) && (cur_x_reg == MAX_X - 1)) || ((move_xl_tick || enable) && (cur_x_reg == 0)) ? 10 :    
 //                        (move_xr_tick || enable) ? cur_x_reg + 1 :    // move right
 //                        (move_xl_tick) ? cur_x_reg - 1 :    // move left
@@ -146,8 +175,9 @@ module text_screen_gen(
     
     // object signals
     // green over black and reversed video for cursor
-    assign text_rgb = (ascii_bit) ? 12'h0F0 : 12'h000;
-    assign text_rev_rgb = (ascii_bit) ? 12'h000 : 12'h0F0;
+    parameter BG_COLOR = 12'h000;
+    assign text_rgb = (ascii_bit) ? { {2*cur_y_reg[3:0], 3*cur_y_reg[3:0], cur_y_reg[3:0]},4'hB} : 12'h000;
+    assign text_rev_rgb = (ascii_bit) ? 12'hFFF : 12'hB00;
     // use delayed coordinates for comparison
     assign cursor_on = (pix_y2_reg[8:4] == cur_y_reg) &&
                        (pix_x2_reg[9:3] == cur_x_reg);
@@ -155,11 +185,11 @@ module text_screen_gen(
                        (pix_y2_reg[8:4] == cur_y_reg && pix_x2_reg[9:3] > cur_x_reg);
     // rgb multiplexing circuit
     always @*
-        if(~video_on || after_cursor)
+        if(reset || not_show)
             rgb = 12'h000;     // blank
         else
             if(cursor_on)
-                rgb = text_rev_rgb;
+                rgb = 12'hB54;
             else
                 rgb = text_rgb;
       
