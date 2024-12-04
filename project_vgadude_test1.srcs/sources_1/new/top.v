@@ -23,7 +23,7 @@ module top(
     wire [11:0] rgb_next;
     
     // instantiate vga controller
-    vga_controller vga(.clk_100MHz(clk), .reset(reset), .video_on(w_vid_on),
+    vga_controller vga(.clk_100MHz(clk), .reset(), .video_on(w_vid_on),
                        .hsync(hsync), .vsync(vsync), .p_tick(w_p_tick), 
                        .x(w_x), .y(w_y));
     
