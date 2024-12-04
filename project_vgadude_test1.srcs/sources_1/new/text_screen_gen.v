@@ -9,7 +9,7 @@
 // by: David J. Marion aka FPGA Dude
 
 module text_screen_gen(
-    input clk, reset,
+    input clk, reset, tclk,
     input video_on,
     input set,
     input up,
@@ -60,7 +60,8 @@ module text_screen_gen(
     // debounce_chu db_keyboard(.clk(clk), .reset(reset), .sw(en), .db_level(), .db_tick(move_xr));
     
     reg [1:0] stage = 0;
-    reg enable = 0;
+    reg enable;
+//    singlePulser singelIsEnable(.d(enable), .clk(clk), .pushed(en));
     always @(posedge clk) begin
         if (stage == 0) begin
             if(en) begin
@@ -96,7 +97,7 @@ module text_screen_gen(
     
     // registers
     always @(posedge clk or posedge reset)
-        if(reset || right) begin
+        if(reset) begin
             cur_x_reg <= 10;
             cur_y_reg <= 10;
             pix_x1_reg <= 0;
@@ -159,7 +160,7 @@ module text_screen_gen(
             rgb = 12'h000;     // blank
         else
             if(cursor_on)
-                rgb = text_rev_rgb;
+                rgb = 12'h0F0;
             else
                 rgb = text_rgb;
       

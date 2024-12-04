@@ -28,7 +28,7 @@ module top(
                        .x(w_x), .y(w_y));
     
     // instantiate text generation circuit
-    text_screen_gen tsg(.clk(clk), .reset(reset), .video_on(w_vid_on), .set(set),
+    text_screen_gen tsg(.clk(clk), .tclk(targetClk), .reset(reset), .video_on(w_vid_on), .set(set),
                         .up(up), .down(down), .left(left), .right(right),
                         .sw(sw), .x(w_x), .y(w_y), .rgb(rgb_next), .data_fk(data_fk), .en(en1));
                      

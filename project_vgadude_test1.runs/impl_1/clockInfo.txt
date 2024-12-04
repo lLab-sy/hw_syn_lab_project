@@ -1,6 +1,6 @@
 -------------------------------------
 | Tool Version : Vivado v.2024.1
-| Date         : Wed Dec  4 12:43:12 2024
+| Date         : Wed Dec  4 14:26:02 2024
 | Host         : MSI
 | Design       : design_1
 | Device       : xc7a35t-cpg236-1--
