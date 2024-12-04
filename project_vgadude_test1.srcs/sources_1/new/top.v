@@ -55,10 +55,16 @@ module top(
     clockDiv ffdiv(targetClk, tclk[18]);
     
     reg [7:0] display_out;
+    reg [7:0] dum;
     
-    always@(*) begin
-        if(set) display_out = sw;
-        else if(en2) display_out = data_waste; 
+    always@(posedge set or posedge en2) begin
+        if(set)
+        begin
+         display_out <= sw;
+         dum <= sw;
+        end
+        else if(en2) display_out <= data_waste;
+        else display_out <= dum;
     end
     
     wire targetClk;

@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.runs/synth_1/top.tcl"
+  variable script "D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.runs/synth_1/top.tcl"
   variable category "vivado_synth"
 }
 
@@ -57,35 +57,34 @@ if {$::dispatch::connected} {
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
 set_param chipscope.maxJobs 3
-set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcpg236-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.cache/wt} [current_project]
-set_property parent.project_path {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.xpr} [current_project]
+set_property webtalk.parent_dir D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.cache/wt [current_project]
+set_property parent.project_path D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property board_part digilentinc.com:basys3:part0:1.2 [current_project]
-set_property ip_output_repo {c:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.cache/ip} [current_project]
+set_property ip_output_repo d:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib {
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/ascii_rom.v}
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/baudrate_gen.v}
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/clockDiv.v}
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/hexTo7Segment.v}
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/quadSevenSeg.v}
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/receiver.v}
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/simple_dual_one_clock.v}
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/text_screen_gen.v}
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/transmitter.v}
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/uart.v}
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/vga_controller.v}
-  {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/sources_1/new/top.v}
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/ascii_rom.v
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/baudrate_gen.v
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/clockDiv.v
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/hexTo7Segment.v
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/quadSevenSeg.v
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/receiver.v
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/simple_dual_one_clock.v
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/text_screen_gen.v
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/transmitter.v
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/uart.v
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/vga_controller.v
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/top.v
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -96,12 +95,12 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc {{C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/constrs_1/new/const_text_gen.xdc}}
-set_property used_in_implementation false [get_files {{C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/constrs_1/new/const_text_gen.xdc}}]
+read_xdc D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/constrs_1/new/const_text_gen.xdc
+set_property used_in_implementation false [get_files D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/constrs_1/new/const_text_gen.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental {C:/Users/com msi/Desktop/University/hw_lab/HW_SYS_LAB/project_vgadude_test1.srcs/utils_1/imports/synth_1/top.dcp}
+read_checkpoint -auto_incremental -incremental D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/utils_1/imports/synth_1/top.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }

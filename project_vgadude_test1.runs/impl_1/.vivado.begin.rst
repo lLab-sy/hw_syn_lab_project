@@ -1,40 +1,10 @@
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="com msi" Host="MSI" Pid="13712" HostCore="12" HostMemory="017014775808">
+    <Process Command="vivado.bat" Owner="12evo" Host="LAPTOP-EEU2ANOF" Pid="11496" HostCore="16" HostMemory="014877257728">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="com msi" Host="MSI" Pid="15316" HostCore="12" HostMemory="017014775808">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="com msi" Host="MSI" Pid="1916" HostCore="12" HostMemory="017014775808">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="com msi" Host="MSI" Pid="16064" HostCore="12" HostMemory="017014775808">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="com msi" Host="MSI" Pid="3348" HostCore="12" HostMemory="017014775808">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="com msi" Host="MSI" Pid="18912" HostCore="12" HostMemory="017014775808">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="com msi" Host="MSI" Pid="21700" HostCore="12" HostMemory="017014775808">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="com msi" Host="MSI" Pid="9076" HostCore="12" HostMemory="017014775808">
+    <Process Command="vivado.bat" Owner="12evo" Host="LAPTOP-EEU2ANOF" Pid="21148" HostCore="16" HostMemory="014877257728">
     </Process>
 </ProcessHandle>
