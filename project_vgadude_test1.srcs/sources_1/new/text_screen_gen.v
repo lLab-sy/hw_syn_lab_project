@@ -1,13 +1,5 @@
 `timescale 1ns / 1ps
 
-// Reference book: "FPGA Prototyping by Verilog Examples"
-//                    "Xilinx Spartan-3 Version"
-// Authored by: Pong P. Chu
-// Published by: Wiley, 2008
-
-// Adapted for use on Basys 3 FPGA with Xilinx Artix-7
-// by: David J. Marion aka FPGA Dude
-
 module text_screen_gen(
     input clk, reset,
     input video_on,
@@ -54,14 +46,6 @@ module text_screen_gen(
     wire [11:0] text_rgb, text_rev_rgb;
     wire en, move_xr, after_cursor;
     
-    // body
-    // instantiate debounce for four buttons
-    //debounce_chu db_left(.clk(clk), .reset(resdet), .sw(left), .db_level(), .db_tick(move_xl_tick));
-    //debounce_chu db_up(.clk(clk), .reset(reset), .sw(up), .db_level(), .db_tick(move_yu_tick));
-    //debounce_chu db_down(.clk(clk), .reset(reset), .sw(down), .db_level(), .db_tick(move_yd_tick));
-    //debounce_chu db_right(.clk(clk), .reset(reset), .sw(right), .db_level(), .db_tick(move_xr_tick));
-    // debounce_chu db_keyboard(.clk(clk), .reset(reset), .sw(en), .db_level(), .db_tick(move_xr));
-    
     reg [1:0] stage = 0;
     reg enable = 0;
     always @(posedge clk) begin
@@ -92,11 +76,6 @@ module text_screen_gen(
     
     dual_port_ram dp_ram(.clk(clk), .we(enable), .addr_a(addr_w), .addr_b(addr_r),
                          .din_a(data_fk), .dout_a(), .dout_b(dout), .reset(right));
-    
-    // instantiate dual-port video RAM (2^12-by-7)
-//    dual_port_ram dp_ram(.clk(clk), .we(we), .addr_a(addr_w), .addr_b(addr_r),
-//                         .din_a(din), .dout_a(), .dout_b(dout));
-    
     // registers
     reg [4:0] last_row = START_Y; 
     reg[6:0] max_row[63:0];
@@ -126,24 +105,7 @@ always @(posedge clk or posedge reset)
     wire[6:0] current_max_row;
     assign current_max_row = max_row[pix_y2_reg[8:4]];
     assign not_show = (current_max_row < pix_x2_reg[9:3]) || (pix_y2_reg[8:4] > last_row);
-//    always @(posedge clk or posedge reset)
-//        if(reset || right) begin
-//            cur_x_reg <= START_X;
-//            cur_y_reg <= START_Y;
-//            pix_x1_reg <= 0;
-//            pix_x2_reg <= 0;
-//            pix_y1_reg <= 0;
-//            pix_y2_reg <= 0;
-//        end    
-//        else begin
-//            cur_x_reg <= cur_x_next;
-//            cur_y_reg <= cur_y_next;
-//            pix_x1_reg <= x;
-//            pix_x2_reg <= pix_x1_reg;
-//            pix_y1_reg <= y;
-//            pix_y2_reg <= pix_y1_reg;
-//        end
-    
+
     // tile RAM write
     assign addr_w = {cur_y_reg, cur_x_reg};
     assign we = set;
@@ -159,25 +121,11 @@ always @(posedge clk or posedge reset)
     assign bit_addr = pix_x2_reg[2:0];
     assign ascii_bit = font_word[~bit_addr];
     
-    // new cursor position
-    
-//    assign cur_x_next = (enable && cur_x_reg == MAX_X - 1) ? START_X : (enable) ? cur_x_reg + 1 : cur_x_reg;
-    
-//    assign cur_y_next = (cur_y_reg == MAX_Y -1) ? 10 : ((enable && cur_x_reg == MAX_X - 1)) ? cur_y_reg + 1 : cur_y_reg;
-    
+    // new cursor position 
     assign cur_x_next = (enable && cur_x_reg == MAX_X - 1) ? START_X : (enable && data_fk[7:4] == 4'b0000 && data_fk[3:0] == 4'b1101) ? START_X : (enable) ? cur_x_reg + 1 : cur_x_reg;
 
     assign cur_y_next = (cur_y_reg == MAX_Y -1) ? START_Y : ((enable && cur_x_reg == MAX_X - 1) || (enable && data_fk[7:4] == 4'b0000 && data_fk[3:0] == 4'b1101)) ? cur_y_reg + 1 : cur_y_reg;
-//    assign cur_x_next = ((move_xr_tick || enable) && (cur_x_reg == MAX_X - 1)) || ((move_xl_tick || enable) && (cur_x_reg == 0)) ? 10 :    
-//                        (move_xr_tick || enable) ? cur_x_reg + 1 :    // move right
-//                        (move_xl_tick) ? cur_x_reg - 1 :    // move left
-//                        cur_x_reg;                          // no move
-                                           
-//    assign cur_y_next = (move_yu_tick && (cur_y_reg == 0)) || ( (move_yd_tick || enable) && (cur_y_reg == MAX_Y - 1) && ((move_xr_tick || enable) && (cur_x_reg == MAX_X - 1))) ? 10 :    
-//                        (move_yu_tick) ? cur_y_reg - 1 :    // move up                        
-//                        (move_yd_tick || (((move_xr_tick || enable) && (cur_x_reg == MAX_X - 1)))) ? cur_y_reg + 1 :    // move down
-//                        cur_y_reg;                          // no move           
-    
+
     // object signals
     // green over black and reversed video for cursor
     parameter BG_COLOR = 12'h000;
