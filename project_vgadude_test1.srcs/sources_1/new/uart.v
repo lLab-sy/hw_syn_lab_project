@@ -28,12 +28,10 @@ module uart(
     output RsTx,
     output [7:0] data_out,
     output received
-    //output reg [7:0] LEDs 
+    
     );
     
     reg en, last_rec;
-    //reg [7:0] data_in;
-    //wire [7:0] data_out;
     wire sent, received, baud;
     
     wire [7:0] data;
@@ -47,7 +45,7 @@ module uart(
     always @(posedge baud) begin
         if (en) en = 0;
         if ((~last_rec & received) || mode) begin // if received or pass enable
-            //data_in = data_out;
+            
             en = 1;
         end
         last_rec = received;
