@@ -5,8 +5,8 @@ module top(
     input reset,            // sw[15]
     input set,              // btnC
     input [7:0] sw,         // sw[6:0] sets ASCII value
-    input ja1,          // Receive from another board
-    output ja2,         // Transmit to another board
+    input ja1,          
+    output ja2,
     output wire RsTx, //uart
     input wire RsRx, //uart
     output hsync, vsync,    // VGA connector
@@ -36,8 +36,8 @@ module top(
     wire en1;
     wire en2;
        
-    uart uartMyKeyboardToMyBasys(.clk(clk), .RsRx(ja1), .RsTx(RsTx), .data_in(0), .data_out(data_fk), .received(en1), .mode(1'b0));
-    uart uartBoardToBoard(.clk(clk), .RsRx(RsRx), .RsTx(ja2), .data_in(sw[7:0]), .data_out(data_waste), .received(en2), .mode(set));
+    uart uart1(.clk(clk), .RsRx(ja1), .RsTx(RsTx), .data_in(0), .data_out(data_fk), .received(en1), .mode(1'b0));
+    uart uart2(.clk(clk), .RsRx(RsRx), .RsTx(ja2), .data_in(sw[7:0]), .data_out(data_waste), .received(en2), .mode(set));
     
     // div clk for display
     wire [18:0] tclk;
