@@ -74,7 +74,7 @@ module text_screen_gen(
     // instantiate the ascii / font rom
     ascii_rom a_rom(.clk(clk), .addr(rom_addr), .data(font_word));
     
-    dual_port_ram dp_ram(.clk(clk), .we(enable), .addr_a(addr_w), .addr_b(addr_r),
+    ram dp_ram(.clk(clk), .we(enable), .addr_a(addr_w), .addr_b(addr_r),
                          .din_a(data_fk), .dout_a(), .dout_b(dout), .reset(right));
     // registers
     reg [4:0] last_row = START_Y; 

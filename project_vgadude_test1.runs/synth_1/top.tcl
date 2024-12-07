@@ -56,8 +56,11 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 3
-set_param xicom.use_bs_reader 1
+set_param checkpoint.writeSynthRtdsInDcp 1
+set_param synth.incrementalSynthesisCache C:/Users/12evo/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-13000-LAPTOP-EEU2ANOF/incrSyn
+set_msg_config -id {Common 17-41} -limit 10000000
+set_msg_config -id {Synth 8-256} -limit 10000
+set_msg_config -id {Synth 8-638} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcpg236-1
 
@@ -79,8 +82,8 @@ read_verilog -library xil_defaultlib {
   D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/clockDiv.v
   D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/hexTo7Segment.v
   D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/quadSevenSeg.v
+  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/ram.v
   D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/receiver.v
-  D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/simple_dual_one_clock.v
   D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/text_screen_gen.v
   D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/transmitter.v
   D:/work/3/hw_lab/projfinaljingjing/hw_syn_lab_project/project_vgadude_test1.srcs/sources_1/new/uart.v

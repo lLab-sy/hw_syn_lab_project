@@ -9,7 +9,7 @@ module ascii_rom(
 	reg [11:0] addr_reg;
 	reg [7:0] rom [4095:0];
 	
-	initial $readmemb("ascii5.txt", rom);
+	initial $readmemb("ascii.txt", rom);
 	
 	always @(posedge clk)
 		addr_reg <= addr;
